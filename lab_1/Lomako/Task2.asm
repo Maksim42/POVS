@@ -8,20 +8,17 @@ v_tmp2 equ 0x2E
 BEGIN:
     BCF STATUS, 0x5 ;Set Bank0
 
-    ;swap A[0] and A[4]
-    MOVLW 0x0       ; v_tmp = A[0] begin
-    ADDLW c_arA
-    MOVWF FSR
-    MOVF INDF, 0
-    MOVWF v_tmp     ; v_tmp = A[0] end
+    ; swap A[0] and A[4]
     MOVLW 0x4       ; A[0] = A[4] begin
     ADDLW c_arA
     MOVWF FSR
     MOVF INDF, 0
     MOVWF v_tmp2
-    MOVLW 0x0
+    MOVLW 0x0       ; v_tmp = A[0] begin
     ADDLW c_arA
     MOVWF FSR
+    MOVF INDF, 0
+    MOVWF v_tmp     ; v_tmp = A[0] end
     MOVF v_tmp2, 0
     MOVWF INDF      ; A[0] = A[4] end
     MOVLW 0x4       ; A[4] = v_tmp begin
