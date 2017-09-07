@@ -23,8 +23,12 @@ BEGIN:
     ADDLW c_arA
     MOVWF FSR
     MOVF v_tmp2, 0
-    MOVWF INDF      ; A[0] = A[4] begin
-    MOVLW 
+    MOVWF INDF      ; A[0] = A[4] end
+    MOVLW 0x4       ; A[4] = v_tmp begin
+    ADDLW c_arA
+    MOVWF FSR
+    MOVF v_tmp, 0
+    MOVWF INDF      ; A[4] = v_tmp end
 
     NOP
 	CLRF v_tmp
