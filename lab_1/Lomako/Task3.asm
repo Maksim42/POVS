@@ -11,9 +11,9 @@ v_minpos equ    0x2C
 v_tmp equ       0x2D
 
 BEGIN:
-    BCF STATUS, 0x5 ; Set Bank0
-    MOVLW c_arLen
-    MOVWF v_i
+BCF STATUS, 0x5 ; Set Bank0
+MOVLW c_arLen
+MOVWF v_i
 LOOPI:
     MOVF v_i, 0         ; W = i
     MOVWF v_j           ; j = i
@@ -22,22 +22,21 @@ LOOPI:
     MOVWF FSR           ; min = a[i]
     MOVF INDF, 0
     MOVWF v_min
-LOOPJ:
-    MOVF v_j, 0         ; W = a[j]
-    ADDLW c_arA
-    MOVWF FSR
-    MOVF INDF, 0
-    SUBWF v_min, 0      ; if a[j] < v_min
-    BTFSS STATUS, 0
-    GOTO IFEND
-    MOVF FSR, 0
-    MOVWF v_minpos      ; maxpos = a[j].address
-    MOVF INDF, 0        ; max = a[j]
-    MOVWF v_min     
-IFEND:                  ; end if
+    LOOPJ:
+        MOVF v_j, 0         ; W = a[j]
+        ADDLW c_arA
+        MOVWF FSR
+        MOVF INDF, 0
+        SUBWF v_min, 0      ; if a[j] < v_min
+        BTFSS STATUS, 0
+        GOTO IFEND
+            MOVF FSR, 0
+            MOVWF v_minpos      ; maxpos = a[j].address
+            MOVF INDF, 0        ; max = a[j]
+            MOVWF v_min     
+        IFEND:                  ; end if
     DECFSZ v_j, 1
     GOTO LOOPJ          ; end LOOPJ
-
     MOVF v_i, 0         ; tmp = a[i]
     ADDLW c_arA
     MOVWF FSR
@@ -49,7 +48,6 @@ IFEND:                  ; end if
     MOVWF FSR
     MOVF v_tmp, 0
     MOVWF INDF
-
-    DECFSZ v_i, 1
-    GOTO LOOPI          ; end LOOPI
-    end
+DECFSZ v_i, 1
+GOTO LOOPI          ; end LOOPI
+end
