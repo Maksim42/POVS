@@ -4,7 +4,7 @@
 c_stHead    set 0x0C ; stek length = 4
 ; var
 v_stPointer equ 0x10
-v_temp  equ 0x11
+v_temp      equ 0x11
 v_i         equ 0x12
 v_arPointer equ 0x13
 v_epPointer equ 0x14
@@ -38,8 +38,6 @@ READSTR:
     CALL POP
     MOVWF v_arPointer
 
-    
-
     LOOPI:
         MOVF v_epPointer, 0
         ADDWF v_i, 0
@@ -65,11 +63,11 @@ BCF STATUS, 0x5
 MOVLW c_stHead
 MOVWF v_stPointer
 
-MOVLW 0x30
+MOVLW 0x30  ; array addres
 CALL PUSH
-MOVLW 0x05
+MOVLW 0x05  ; data length
 CALL PUSH
-MOVLW 0x01
+MOVLW 0x01  ; memory addres
 CALL PUSH
 
 CALL READSTR 
