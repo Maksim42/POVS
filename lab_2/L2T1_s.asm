@@ -8,6 +8,10 @@ v_arPointer equ 0x11
 v_epPointer equ 0x12
 v_strLength equ 0x13
 
+ORG H'2101'
+DE "BGUIR"
+ORG 0
+
 GOTO BEGIN
 
 READSTR:
